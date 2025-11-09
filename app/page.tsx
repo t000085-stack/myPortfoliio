@@ -1,96 +1,362 @@
+"use client";
+
+import { motion } from "framer-motion";
+import AnimatedSection from "@/components/AnimatedSection";
+import AnimatedText from "@/components/AnimatedText";
+
 export default function Home() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-5xl font-bold text-center mb-8 text-gray-900">
-          Software Developer Portfolio
-        </h1>
-        <p className="text-xl text-center text-gray-600 mb-8">
-          Building modern web applications with passion
-        </p>
-        <div className="max-w-4xl mx-auto">
-          <section
-            id="about"
-            className="py-12 mb-8 bg-white rounded-lg shadow-md p-6"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">About Me</h2>
-            <p className="text-lg text-gray-600">
-              I'm a passionate software developer with a focus on creating
-              clean, efficient, and user-friendly applications.
-            </p>
-          </section>
-          <section
-            id="skills"
-            className="py-12 mb-8 bg-white rounded-lg shadow-md p-6"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Skills</h2>
-            <div className="flex flex-wrap gap-3">
-              {[
-                "JavaScript",
-                "TypeScript",
-                "React",
-                "Next.js",
-                "Node.js",
-                "Python",
-              ].map((skill) => (
-                <span
-                  key={skill}
-                  className="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg"
+    <main className="min-h-screen bg-[#0a192f] text-[#ccd6f6]">
+      {/* Navigation */}
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-[#0a192f]/80 backdrop-blur-sm border-b border-[#233554]"
+      >
+        <div className="max-w-5xl mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <motion.a
+              href="#"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="text-xl font-semibold text-[#64ffda]"
+            >
+              Portfolio
+            </motion.a>
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex gap-8"
+            >
+              {["About", "Experience", "Projects"].map((item, index) => (
+                <motion.a
+                  key={item}
+                  variants={itemVariants}
+                  href={`#${item.toLowerCase()}`}
+                  whileHover={{ y: -2, color: "#64ffda" }}
+                  className="text-sm text-[#ccd6f6] transition-colors"
                 >
-                  {skill}
-                </span>
+                  {item}
+                </motion.a>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center px-6 pt-20">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-5xl w-full"
+        >
+          <AnimatedText delay={0.2}>
+            <p className="text-[#64ffda] text-sm font-mono mb-4">
+              Hi, my name is
+            </p>
+          </AnimatedText>
+          <AnimatedText delay={0.3}>
+            <h1 className="text-6xl md:text-7xl font-bold text-[#ccd6f6] mb-4">
+              Software Developer
+            </h1>
+          </AnimatedText>
+          <AnimatedText delay={0.4}>
+            <h2 className="text-5xl md:text-6xl font-bold text-[#8892b0] mb-6">
+              I build things for the web.
+            </h2>
+          </AnimatedText>
+          <AnimatedText delay={0.5}>
+            <p className="text-lg text-[#8892b0] max-w-2xl mb-8">
+              I'm a software developer specializing in building (and
+              occasionally designing) exceptional digital experiences.
+              Currently, I'm focused on building accessible, human-centered
+              products.
+            </p>
+          </AnimatedText>
+          <motion.a
+            href="#projects"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 0 20px rgba(100, 255, 218, 0.3)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block border border-[#64ffda] text-[#64ffda] px-6 py-3 rounded hover:bg-[#64ffda]/10 transition-colors"
+          >
+            Check out my projects!
+          </motion.a>
+        </motion.div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="min-h-screen flex items-center px-6 py-20">
+        <AnimatedSection>
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-start gap-12">
+              <motion.h2
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-2xl font-semibold text-[#ccd6f6] whitespace-nowrap"
+              >
+                <span className="text-[#64ffda]">01.</span> About Me
+              </motion.h2>
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="flex-1"
+              >
+                <p className="text-[#8892b0] mb-4">
+                  Hello! I'm a software developer based in the US, specializing
+                  in building (and occasionally designing) exceptional digital
+                  experiences. Currently, I'm focused on building accessible,
+                  human-centered products.
+                </p>
+                <p className="text-[#8892b0] mb-4">
+                  I enjoy creating things that live on the internet, whether
+                  that be websites, applications, or anything in between. My
+                  goal is to always build products that provide pixel-perfect,
+                  performant experiences.
+                </p>
+                <p className="text-[#8892b0] mb-6">
+                  Here are a few technologies I've been working with recently:
+                </p>
+                <motion.ul
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="grid grid-cols-2 gap-2 text-[#8892b0] list-none"
+                >
+                  {[
+                    "JavaScript (ES6+)",
+                    "TypeScript",
+                    "React",
+                    "Next.js",
+                    "Node.js",
+                    "Python",
+                  ].map((tech, index) => (
+                    <motion.li
+                      key={tech}
+                      variants={itemVariants}
+                      whileHover={{ x: 5, color: "#64ffda" }}
+                      className="flex items-center cursor-default"
+                    >
+                      <span className="text-[#64ffda] mr-2">▹</span>
+                      {tech}
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </motion.div>
+            </div>
+          </div>
+        </AnimatedSection>
+      </section>
+
+      {/* Experience Section */}
+      <section
+        id="experience"
+        className="min-h-screen flex items-center px-6 py-20"
+      >
+        <AnimatedSection>
+          <div className="max-w-5xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-2xl font-semibold text-[#ccd6f6] mb-12"
+            >
+              <span className="text-[#64ffda]">02.</span> Where I've Worked
+            </motion.h2>
+            <div className="space-y-8">
+              {[
+                {
+                  period: "2024 — Present",
+                  title: "Senior Software Engineer · Company Name",
+                  description:
+                    "Build and maintain critical components used to construct the frontend, across the whole product. Work closely with cross-functional teams to implement and advocate for best practices.",
+                  tech: ["JavaScript", "TypeScript", "React", "Next.js"],
+                },
+                {
+                  period: "2020 — 2024",
+                  title: "Software Engineer · Previous Company",
+                  description:
+                    "Built, styled, and shipped high-quality websites and digital experiences for a diverse array of projects. Provided leadership within engineering department through close collaboration and knowledge sharing.",
+                  tech: ["React", "Node.js", "TypeScript", "Python"],
+                },
+              ].map((exp, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  whileHover={{ x: 10 }}
+                  className="border-l-2 border-[#233554] pl-6 hover:border-[#64ffda] transition-colors"
+                >
+                  <div className="flex items-baseline gap-4 mb-2">
+                    <motion.span
+                      whileHover={{ scale: 1.1 }}
+                      className="text-sm text-[#64ffda] font-mono"
+                    >
+                      {exp.period}
+                    </motion.span>
+                    <h3 className="text-xl font-semibold text-[#ccd6f6]">
+                      {exp.title}
+                    </h3>
+                  </div>
+                  <p className="text-[#8892b0] mb-4">{exp.description}</p>
+                  <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="flex flex-wrap gap-2"
+                  >
+                    {exp.tech.map((tech) => (
+                      <motion.span
+                        key={tech}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        className="text-xs text-[#8892b0] bg-[#112240] px-3 py-1 rounded cursor-default"
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
-          </section>
-          <section
-            id="projects"
-            className="py-12 mb-8 bg-white rounded-lg shadow-md p-6"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Projects</h2>
-            <div className="space-y-4">
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2">
-                  E-Commerce Platform
-                </h3>
-                <p className="text-gray-600">
-                  A full-stack e-commerce application
-                </p>
-              </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="text-xl font-semibold mb-2">
-                  Task Management App
-                </h3>
-                <p className="text-gray-600">
-                  A collaborative task management tool
-                </p>
-              </div>
+          </div>
+        </AnimatedSection>
+      </section>
+
+      {/* Projects Section */}
+      <section
+        id="projects"
+        className="min-h-screen flex items-center px-6 py-20"
+      >
+        <AnimatedSection>
+          <div className="max-w-5xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-2xl font-semibold text-[#ccd6f6] mb-12"
+            >
+              <span className="text-[#64ffda]">03.</span> Some Things I've Built
+            </motion.h2>
+            <div className="space-y-12">
+              {[
+                {
+                  title: "Project Name",
+                  description:
+                    "A web app for visualizing personalized data. View your top items, recently played tracks, and detailed information about each item.",
+                  tech: ["React", "Node.js", "Express"],
+                },
+                {
+                  title: "Another Project",
+                  description:
+                    "A full-stack application with user authentication, real-time updates, and team collaboration features.",
+                  tech: ["Next.js", "TypeScript", "PostgreSQL"],
+                },
+              ].map((project, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="bg-[#112240] rounded-lg p-6 hover:shadow-[0_10px_30px_rgba(100,255,218,0.1)] transition-all cursor-pointer"
+                >
+                  <h3 className="text-xl font-semibold text-[#ccd6f6] mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-[#8892b0] mb-4">{project.description}</p>
+                  <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="flex flex-wrap gap-2 mb-4"
+                  >
+                    {project.tech.map((tech) => (
+                      <motion.span
+                        key={tech}
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.1 }}
+                        className="text-xs text-[#8892b0] font-mono"
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                  <div className="flex gap-4">
+                    <motion.a
+                      href="#"
+                      whileHover={{ x: 5, color: "#ccd6f6" }}
+                      className="text-[#64ffda] hover:text-[#ccd6f6] text-sm"
+                    >
+                      ↗ External Link
+                    </motion.a>
+                    <motion.a
+                      href="#"
+                      whileHover={{ x: 5, color: "#ccd6f6" }}
+                      className="text-[#64ffda] hover:text-[#ccd6f6] text-sm"
+                    >
+                      <span className="font-mono">→</span> GitHub
+                    </motion.a>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </section>
-          <section
-            id="contact"
-            className="py-12 bg-white rounded-lg shadow-md p-6"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Contact</h2>
-            <p className="text-lg text-gray-600 mb-4">
-              Get in touch with me for opportunities and collaborations.
-            </p>
-            <div className="flex gap-4">
-              <a
-                href="mailto:your.email@example.com"
-                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-              >
-                Email Me
-              </a>
-              <a
-                href="https://github.com"
-                className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50"
-              >
-                GitHub
-              </a>
-            </div>
-          </section>
-        </div>
-      </div>
+          </div>
+        </AnimatedSection>
+      </section>
+
+      {/* Footer */}
+      <motion.footer
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="px-6 py-8 text-center text-[#8892b0] text-sm"
+      >
+        <p>Built with Next.js and Tailwind CSS</p>
+      </motion.footer>
     </main>
   );
 }
